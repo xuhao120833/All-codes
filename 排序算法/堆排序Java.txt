@@ -1,0 +1,82 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+// The main method must be in a class named "Main".
+class Main {
+    public static void main(String[] args) {
+		int[] array = {3,5,6,1,33,22,9,100,8,4,2,1,5,6,31,27,19,17};
+		heapSort(array);
+		for(int b = 0;b<array.length;b++) {
+			System.out.println("数组 "+b+" = "+array[b]);	
+		}
+        System.out.println("Hello world!");
+    }
+	
+	/**
+     * 堆排序主方法
+     * @param arr 待排序的数组
+     */
+    public static void heapSort(int[] arr) {
+        if (arr == null || arr.length <= 1) {
+            return;
+        }
+
+        int n = arr.length;
+
+        // 第一步：构建大顶堆（从最后一个非叶子节点开始，自下而上调整）
+        // 最后一个非叶子节点的下标是 (n/2 - 1)
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            heapify(arr, n, i);
+        }
+
+        // 第二步：进行排序
+        // 每次将堆顶元素（最大值）与当前数组的最后一个元素交换
+        for (int i = n - 1; i > 0; i--) {
+            // 交换堆顶和末尾元素
+            swap(arr, 0, i);
+            // 对堆顶元素进行下沉调整，恢复大顶堆性质，注意此时堆的大小缩减为 i
+            heapify(arr, i, 0);
+        }
+    }
+
+    //排升序用大顶堆，排降序用小顶堆
+
+    /**
+     * 堆化（下沉调整）：保证以 i 为根节点的子树满足大顶堆性质
+     * @param arr 数组
+     * @param n 当前堆的有效大小
+     * @param i 当前需要调整的节点下标
+     */
+    private static void heapify(int[] arr, int n, int i) {
+        int largest = i;       // 假设当前节点最大
+        int leftChild = 2 * i + 1;  // 左孩子下标
+        int rightChild = 2 * i + 2; // 右孩子下标
+
+        // 如果左孩子存在且大于当前最大值，更新 largest
+        if (leftChild < n && arr[leftChild] > arr[largest]) {
+            largest = leftChild;
+        }
+
+        // 如果右孩子存在且大于当前最大值，更新 largest
+        if (rightChild < n && arr[rightChild] > arr[largest]) {
+            largest = rightChild;
+        }
+
+        // 如果最大值不是当前节点，说明需要下沉
+        if (largest != i) {
+            swap(arr, i, largest);
+            // 递归调整受影响的子树
+            heapify(arr, n, largest);
+        }
+    }
+
+    /**
+     * 交换数组中两个元素的位置
+     */
+    private static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+}

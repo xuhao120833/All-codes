@@ -1,0 +1,39 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+// The main method must be in a class named "Main".
+class Main {
+    public static void main(String[] args) {
+		int[] a ={3,5,6,1,33,22,9,100,8,4,2,1,5,6,31,27,19,17};
+		sortShell(a);
+		for(int b =0;b<a.length;b++) {
+			System.out.println("数组 "+b+" = "+a[b]);
+		}
+        System.out.println("Hello world!");
+    }
+	
+/**
+* @param int[] 未排序数组
+* @return int[] 排完序数组
+ */
+ 
+public static int[] sortShell(int[] array) {
+     // 取增量
+     int step = array.length / 2;
+     while (step >= 1) {
+          for (int i = step; i < array.length; i++) {
+               int temp = array[i];
+               int j = 0;
+               // 跟插入排序的区别就在这里
+               for (j = i - step; j >= 0 && temp < array[j]; j -= step) {
+                     array[j + step] = array[j];
+               }
+               array[j + step] = temp;
+          }
+          step /= 2;
+     }
+     return array;
+}
+
+}

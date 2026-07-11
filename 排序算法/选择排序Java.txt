@@ -1,0 +1,34 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+// The main method must be in a class named "Main".
+class Main {
+    public static void main(String[] args) {
+		int[] array = {3,5,6,1,33,22,9,100,8,4,2,1,5,6,31,27,19,17};
+		sortSelect(array);
+		for(int b = 0;b<array.length;b++) {
+			System.out.println("数组 "+b+" = "+array[b]);	
+		}
+        System.out.println("Hello world!");
+    }
+	
+	private static int[] sortSelect(int[] array) {
+		int miniPost;
+		for(int i =0;i<array.length;i++) {
+			miniPost = i;
+			for(int m =i+1;m<array.length;m++) {
+				if(array[m]<array[miniPost]) {
+					miniPost = m;
+				}
+			}
+			
+			if(array[miniPost]<array[i]) {
+				int temp = array[miniPost];
+				array[miniPost] = array[i];
+				array[i] = temp;
+			}
+		}
+		return array;
+	}
+}
